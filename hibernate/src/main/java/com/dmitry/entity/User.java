@@ -3,11 +3,14 @@ package com.dmitry.entity;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.dmitry.converter.BirthdayConverter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,9 +29,11 @@ public class User {
 	private String username;
 	private String firstname;
 	private String lastname;
+	
+	@Convert(converter = BirthdayConverter.class)
 	//@Column(name = "birth_date")
-	private LocalDate birthDate;
-	private Integer age;
+	private Birthday birthDate;
+	
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
