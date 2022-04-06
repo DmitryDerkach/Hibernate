@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -27,6 +29,8 @@ public class User {
 	//@Column(name = "birth_date")
 	private LocalDate birthDate;
 	private Integer age;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 	
 //	public User() {
 //		

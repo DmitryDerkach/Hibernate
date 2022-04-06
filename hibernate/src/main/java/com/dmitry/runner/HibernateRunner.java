@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.hibernate.cfg.Configuration;
+import com.dmitry.entity.Role;
 import com.dmitry.entity.User;
 
 public class HibernateRunner {
@@ -24,6 +25,7 @@ public class HibernateRunner {
 					.firstname("Ivan")
 					.lastname("Ivanov")
 					.birthDate(LocalDate.of(2000, 1, 19))
+					.role(Role.ADMIN)
 					.age(20) 
 					.build();
 			//Сохраняем сущность в БД

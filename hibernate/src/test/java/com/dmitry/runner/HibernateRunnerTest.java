@@ -47,12 +47,12 @@ public class HibernateRunnerTest {
 		
 		System.out.println(sql.format(sql, tableName, columNames, columnValues));
 		
-		Connection connection = null;
-		PreparedStatement prepareStatement = connection.prepareStatement(sql.format(sql, tableName, columNames, columnValues));
-		Field[] declaredFileds = user.getClass().getDeclaredFields();	
-		for (Field declaredFiled : declaredFileds) {
-			declaredFiled.setAccessible(true);
-			prepareStatement.setObject(1, declaredFiled.get(user));
-		}
+//		Connection connection = null;
+//		PreparedStatement prepareStatement = connection.prepareStatement(sql.format(sql, tableName, columNames, columnValues));
+//		Field[] declaredFileds = user.getClass().getDeclaredFields();	
+//		for (Field declaredFiled : declaredFileds) {
+//			declaredFiled.setAccessible(true);
+//			prepareStatement.setObject(1, declaredFiled.get(user));
+//		}
 	}
 }
