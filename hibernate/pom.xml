@@ -7,7 +7,7 @@
   <groupId>hibernate</groupId>
   <artifactId>com</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
 
   <name>com Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
