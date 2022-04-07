@@ -10,7 +10,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import com.dmitry.converter.BirthdayConverter;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +27,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
+@TypeDef(name = "derkach", typeClass = JsonBinaryType.class)
 public class User {
 
 	@Id
@@ -36,6 +41,10 @@ public class User {
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	
+	//@Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
+	@Type(type = "derkach")
+	private String info;
 	
 //	public User() {
 //		
