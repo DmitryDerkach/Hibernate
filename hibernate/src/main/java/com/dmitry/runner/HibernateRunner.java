@@ -56,8 +56,16 @@ public class HibernateRunner {
 //					.role(Role.ADMIN)
 //					.build();
 			//Сохраняем сущность в БД
-			User user = session.get(User.class, "ivan@gmail.com");
-			System.out.println(user);
+			User user1 = session.get(User.class, "ivan@gmail.com");
+			user1.setLastname("Petrov");
+			session.flush();
+			
+			//User user2 = session.get(User.class, "ivan@gmail.com");
+			
+//			session.evict(user1);
+//			session.clear();
+//			session.close();
+			
 			session.getTransaction().commit();
 		}
 	}
