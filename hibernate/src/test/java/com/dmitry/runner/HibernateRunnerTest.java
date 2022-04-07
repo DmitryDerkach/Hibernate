@@ -40,7 +40,7 @@ public class HibernateRunnerTest {
 				.map(field -> "?")
 				.collect(Collectors.joining(", "));
 		
-		System.out.println(sql.format(sql, tableName, columNames, columnValues));
+//		System.out.println(sql.format(sql, tableName, columNames, columnValues));
 		
 //		Connection connection = null;
 //		PreparedStatement prepareStatement = connection.prepareStatement(sql.format(sql, tableName, columNames, columnValues));
