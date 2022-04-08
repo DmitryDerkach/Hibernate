@@ -7,9 +7,10 @@ import org.slf4j.LoggerFactory;
 import com.dmitry.entity.User;
 import com.dmitry.util.HibernateUtil;
 
-public class HibernateRunner {
+import lombok.extern.slf4j.Slf4j;
 
-	private static final Logger log = LoggerFactory.getLogger(HibernateRunner.class);
+@Slf4j
+public class HibernateRunner {
 	
 	public static void main(String[] args) {
 		//По отношению к любой из сессий User нах-ся в состоянии Transient
