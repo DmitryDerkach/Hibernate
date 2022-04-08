@@ -15,27 +15,31 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>10</maven.compiler.source>
+    <maven.compiler.target>10</maven.compiler.target>
   </properties>
 
   <dependencies>
-    <dependency>
+	<dependency>
 	    <groupId>org.slf4j</groupId>
-	    <artifactId>slf4j-api</artifactId>
-	    <version>1.7.32</version>
+	    <artifactId>slf4j-log4j12</artifactId>
+	    <version>1.7.30</version>
+	    <scope>compile</scope>
 	</dependency>
+
 	<dependency>
 	    <groupId>com.vladmihalcea</groupId>
 	    <artifactId>hibernate-types-52</artifactId>
 	    <version>2.12.1</version>
 	</dependency>
+	
 	<dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
 		<version>4.11</version>
 		<scope>test</scope>
 	</dependency>
+	
 	<dependency>
 		<groupId>javax.servlet</groupId>
 		<artifactId>javax.servlet-api</artifactId>
@@ -53,36 +57,29 @@
 		<artifactId>jstl</artifactId>
 		<version>1.2</version>
 	</dependency>
-	<dependency>
-		<groupId>org.apache.logging.log4j</groupId>
-		<artifactId>log4j-api</artifactId>
-		<version>2.14.1</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.logging.log4j</groupId>
-		<artifactId>log4j-core</artifactId>
-		<version>2.14.1</version>
-	</dependency>
+	
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
 	    <version>5.5.6.Final</version>
 	    <scope>compile</scope>
 	</dependency>
+	
 	<dependency>
     	<groupId>org.postgresql</groupId>
     	<artifactId>postgresql</artifactId>
     	<version>42.2.23</version>
     	<scope>runtime</scope>
 	</dependency>
+	
 	<dependency>
 		<groupId>org.projectlombok</groupId>
 		<artifactId>lombok</artifactId>
 		<version>1.18.22</version>
 		<scope>compile</scope>
 	</dependency>
+	
   </dependencies>
-
   <build>
     <finalName>com</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
