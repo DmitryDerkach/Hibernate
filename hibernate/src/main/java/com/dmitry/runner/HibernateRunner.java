@@ -10,64 +10,45 @@ import com.dmitry.converter.BirthdayConverter;
 import com.dmitry.entity.Birthday;
 import com.dmitry.entity.Role;
 import com.dmitry.entity.User;
+import com.dmitry.util.HibernateUtil;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
 public class HibernateRunner {
 
 	public static void main(String[] args) {
-		Configuration configuration = new Configuration();
-		//configuration.addAnnotatedClass(User.class);
-		configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
-		configuration.addAttributeConverter(new BirthdayConverter(), true);
-		configuration.registerTypeOverride(new JsonBinaryType());
-		configuration.configure();
+		//По отношению к любой из сессий User нах-ся в состоянии Transient
+		User user = User.builder()
+			.username("ivan@gamil.com")
+			.lastname("Ivanov")
+			.firstname("Ivan")
+			.build();
 		
-		try (SessionFactory sessionFactory = configuration.buildSessionFactory();
-			 Session session = sessionFactory.openSession()) {
-			
-			session.beginTransaction();
-//			User user = User.builder()
-//					.username("ivan2@gmail.com")
-//					.firstname("Ivan")
-//					.lastname("Ivanov")
-//					.info("{\r\n"
-//							+ "    \"glossary\": {\r\n"
-//							+ "        \"title\": \"example glossary\",\r\n"
-//							+ "		\"GlossDiv\": {\r\n"
-//							+ "            \"title\": \"S\",\r\n"
-//							+ "			\"GlossList\": {\r\n"
-//							+ "                \"GlossEntry\": {\r\n"
-//							+ "                    \"ID\": \"SGML\",\r\n"
-//							+ "					\"SortAs\": \"SGML\",\r\n"
-//							+ "					\"GlossTerm\": \"Standard Generalized Markup Language\",\r\n"
-//							+ "					\"Acronym\": \"SGML\",\r\n"
-//							+ "					\"Abbrev\": \"ISO 8879:1986\",\r\n"
-//							+ "					\"GlossDef\": {\r\n"
-//							+ "                        \"para\": \"A meta-markup language, used to create markup languages such as DocBook.\",\r\n"
-//							+ "						\"GlossSeeAlso\": [\"GML\", \"XML\"]\r\n"
-//							+ "                    },\r\n"
-//							+ "					\"GlossSee\": \"markup\"\r\n"
-//							+ "                }\r\n"
-//							+ "            }\r\n"
-//							+ "        }\r\n"
-//							+ "    }\r\n"
-//							+ "}")
-//					.birthDate(new Birthday(LocalDate.of(2000, 1, 19)))
-//					.role(Role.ADMIN)
-//					.build();
-			//Сохраняем сущность в БД
-			User user1 = session.get(User.class, "ivan@gmail.com");
-			user1.setLastname("Petrov");
-			session.flush();
-			
-			//User user2 = session.get(User.class, "ivan@gmail.com");
-			
-//			session.evict(user1);
-//			session.clear();
-//			session.close();
-			
-			session.getTransaction().commit();
+//		try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+//			 Session session1 = sessionFactory.openSession()) {
+//			session1.beginTransaction();
+//			//В 30 строчке User будет в Persistent состоянии по отношению к session1, но все еще в состаянии transient по отношению
+//			//к session 2, потому что не был никак проассоциирован с этой сессией
+//			session1.saveOrUpdate(user);
+//			
+//			//Зыкрываем сессию - сессия перестает существовать
+//			session1.getTransaction().commit();
+//		}
+		
+		try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+				 Session session2 = sessionFactory.openSession()) {
+				//Смотря в дебаге на session2 мы видим, что РС = null
+				session2.beginTransaction();
+				user.setFirstname("Sveta");
+				//В кэшэ появляется user 
+				//session2.delete(user);
+				//session2.refresh(user);
+				//session2.merge(user);
+				session2.refresh(user);
+				
+				//Транзакция завершается user переходит в состояние removed по отношению к session2
+				session2.getTransaction().commit();
 		}
-	}
-
-}
+		
+		
+	}//main
+}//class
