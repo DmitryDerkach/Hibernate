@@ -4,6 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.dmitry.entity.PersonalInfo;
 import com.dmitry.entity.User;
 import com.dmitry.util.HibernateUtil;
 
@@ -15,9 +17,11 @@ public class HibernateRunner {
 	public static void main(String[] args) {
 		//По отношению к любой из сессий User нах-ся в состоянии Transient
 		User user = User.builder()
-			.username("ivan@gmail.com")
-			.lastname("Ivanov")
-			.firstname("Ivan")
+			.username("peter@gmail.com")
+			.personalInfo(PersonalInfo.builder()
+					.lastname("Petrov")
+					.firstname("Peter")
+					.build())
 			.build();
 		log.info("User entity in transient state, object: {}", user);
 		

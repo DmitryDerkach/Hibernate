@@ -2,6 +2,7 @@ package com.dmitry.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -32,12 +33,8 @@ public class User {
 
 	@Id
 	private String username;
-	private String firstname;
-	private String lastname;
-	
-	@Convert(converter = BirthdayConverter.class)
-	//@Column(name = "birth_date")
-	private Birthday birthDate;
+
+	private PersonalInfo personalInfo;
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
