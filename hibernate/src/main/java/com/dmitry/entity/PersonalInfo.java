@@ -1,5 +1,7 @@
 package com.dmitry.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embeddable;
@@ -14,7 +16,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Embeddable
-public class PersonalInfo {
+public class PersonalInfo implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String firstname;
 	private String lastname;
 	

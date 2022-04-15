@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,14 +34,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "users", schema = "public")
 @TypeDef(name = "derkach", typeClass = JsonBinaryType.class)
 public class User {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	
 	@Column(unique = true)
 	private String username;
 
+	@EmbeddedId
 	private PersonalInfo personalInfo;
 	
 	@Enumerated(EnumType.STRING)

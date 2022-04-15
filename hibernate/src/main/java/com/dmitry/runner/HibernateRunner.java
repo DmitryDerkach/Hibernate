@@ -1,10 +1,13 @@
 package com.dmitry.runner;
 
+import java.time.LocalDate;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dmitry.entity.Birthday;
 import com.dmitry.entity.PersonalInfo;
 import com.dmitry.entity.User;
 import com.dmitry.util.HibernateUtil;
@@ -21,6 +24,7 @@ public class HibernateRunner {
 			.personalInfo(PersonalInfo.builder()
 					.lastname("Petrov")
 					.firstname("Peter")
+					.birthDate(new Birthday(LocalDate.of(2000, 1, 1)))
 					.build())
 			.build();
 		log.info("User entity in transient state, object: {}", user);
