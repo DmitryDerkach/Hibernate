@@ -13,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -35,11 +37,14 @@ import lombok.NoArgsConstructor;
 @TypeDef(name = "derkach", typeClass = JsonBinaryType.class)
 public class User {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private PersonalInfo personalInfo;
+	
 	@Column(unique = true)
 	private String username;
-
-	@EmbeddedId
-	private PersonalInfo personalInfo;
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -47,6 +52,11 @@ public class User {
 	//@Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
 	@Type(type = "derkach")
 	private String info;
+	
+	@ManyToOne
+	@JoinColumn(name = "company_id")
+	private Company company;
+	
 	
 //	public User() {
 //		
