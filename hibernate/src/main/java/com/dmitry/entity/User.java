@@ -10,6 +10,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,7 +54,8 @@ public class User {
 	@Type(type = "derkach")
 	private String info;
 	
-	@ManyToOne
+	//@ManyToOne (optional = false)
+	@ManyToOne (optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
 	private Company company;
 	
