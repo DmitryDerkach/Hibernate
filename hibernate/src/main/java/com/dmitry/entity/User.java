@@ -3,6 +3,7 @@ package com.dmitry.entity;
 import java.time.LocalDate;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embeddable;
@@ -54,9 +55,8 @@ public class User {
 	@Type(type = "derkach")
 	private String info;
 	
-	//@ManyToOne (optional = false)
-	@ManyToOne (optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "company_id")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@JoinColumn(name = "company_id") // company_id
 	private Company company;
 	
 	
