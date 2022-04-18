@@ -15,10 +15,63 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 
 import org.junit.Test;
+
+import com.dmitry.entity.Company;
 import com.dmitry.entity.User;
+import com.dmitry.util.HibernateUtil;
+
+import lombok.Cleanup;
 
 public class HibernateRunnerTest {
 
+	
+    @Test
+    public void deleteCompany() {
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        var company = session.get(Company.class, 8);
+        session.delete(company);
+
+        session.getTransaction().commit();
+    }
+    
+    @Test
+    public void addUserToNewCompany() {
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        var company = Company.builder()
+                .name("Facebook")
+                .build();
+
+        var user = User.builder()
+                .username("sveta@gmail.com")
+                .build();
+//        user.setCompany(company);
+//        company.getUsers().add(user)
+        company.addUser(user);
+
+        session.save(company);
+
+        session.getTransaction().commit();
+    }
+	
+	
+	
+	@Test
+	public void oneToMany() {
+	        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+	        @Cleanup var session = sessionFactory.openSession();
+	        session.beginTransaction();
+
+	        var company = session.get(Company.class, 5);
+	        System.out.println(company.getUsers());
+
+	        session.getTransaction().commit();
+	    }
 	@Test
 	public void checkReflectionApi() throws SQLException, IllegalArgumentException, IllegalAccessException {
 		User user = User.builder()
