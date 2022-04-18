@@ -28,13 +28,17 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
+@ToString(exclude = "company")
+@EqualsAndHashCode(of = "username")
 @Table(name = "users", schema = "public")
 @TypeDef(name = "derkach", typeClass = JsonBinaryType.class)
 public class User {
