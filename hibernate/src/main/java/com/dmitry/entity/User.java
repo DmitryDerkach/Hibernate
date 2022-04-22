@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -37,7 +38,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Entity
-@ToString(exclude = "company")
+@ToString(exclude = {"company", "profile"})
 @EqualsAndHashCode(of = "username")
 @Table(name = "users", schema = "public")
 @TypeDef(name = "derkach", typeClass = JsonBinaryType.class)
@@ -62,6 +63,9 @@ public class User {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinColumn(name = "company_id") // company_id
 	private Company company;
+	
+	@OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
+	private Profile profile;
 	
 	
 //	public User() {

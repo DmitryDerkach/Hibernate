@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import org.junit.Test;
 
 import com.dmitry.entity.Company;
+import com.dmitry.entity.Profile;
 import com.dmitry.entity.User;
 import com.dmitry.util.HibernateUtil;
 
@@ -24,6 +25,32 @@ import lombok.Cleanup;
 
 public class HibernateRunnerTest {
 
+    @Test
+    public void checkOneToOne() {
+        try (var sessionFactory = HibernateUtil.buildSessionFactory();
+             var session = sessionFactory.openSession()) {
+            session.beginTransaction();
+
+//            var user = session.get(User.class, 9L);
+//            System.out.println(user);
+
+            var user = User.builder()
+                    .username("test4@gmail.com")
+                    .build();
+            var profile = Profile.builder()
+                    .language("ru")
+                    .street("Kolasa 18")
+                    .build();
+            
+            profile.setUser(user);
+            session.save(user);
+            
+//            profile.setUser(user);
+//            session.save(profile);
+
+            session.getTransaction().commit();
+        }
+    }
 	
     @Test
     public void deleteCompany() {

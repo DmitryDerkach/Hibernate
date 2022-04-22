@@ -16,6 +16,7 @@
 		
       	<mapping class="com.dmitry.entity.User"></mapping>  
       	<mapping class="com.dmitry.entity.Company"></mapping>  
+      	<mapping class="com.dmitry.entity.Profile"></mapping>  
       	  	    	
     </session-factory>
 </hibernate-configuration>
